@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narrative Analysis Timeline (Swimlane Diagram)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="swimlane_timeline.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Narrative Analysis Timeline</h1>
+        
+        <!-- 年軸エリア -->
+        <div class="year-axis-container" id="yearAxisContainer">
+            <div class="year-axis-spacer"></div>
+            <div class="year-axis-wrapper">
+                <div class="year-axis" id="yearAxis">
+                    <div class="year-axis-content" id="yearAxisContent"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- メインコンテンツエリア: 左ヘッダーとタイムラインを同じコンテナに -->
+        <div class="main-content-wrapper">
+            <div class="left-header">
+                <div class="lane-header lane-header-4">Field</div>
+                <div class="lane-header lane-header-3">Institution</div>
+                <div class="lane-header lane-header-2">Game Changer<br>(SoftBank)</div>
+                <div class="lane-header lane-header-1">Rule Change</div>
+            </div>
+
+            <div class="timeline-wrapper">
+                <div class="timeline-container" id="timeline">
+                <div class="phase-bands-timeline" id="phaseBandsTimeline"></div>
+                <div id="lanes"></div>
+                <div id="events"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data embedded directly in HTML
+        const data = {
+  "lanes": {
+    "4": "Field",
+    "3": "Institution",
+    "2": "Game Changer",
+    "1": "Rule Change"
+  },
+  "phases": [
+    {
+      "start": 1990,
+      "end": 1994,
+      "label": "Phase 1 (Dawn)"
+    },
+    {
+      "start": 1995,
+      "end": 1997,
+      "label": "Phase 2 (Crack)"
+    },
+    {
+      "start": 1998,
+      "end": 2000,
+      "label": "Phase 3 (Transition)"
+    }
+  ],
+  "events": [
+    {
+      "year": 1981.75,
+      "lane": 2,
+      "text": "SoftBank Corp. established"
+    },
+    {
+      "year": 1985.0,
+      "lane": 3,
+      "text": "NTT privatization → Telecommunications liberalization"
+    },
+    {
+      "year": 1991.0,
+      "lane": 4,
+      "text": "[Tech] World's first website published"
+    },
+    {
+      "year": 1991.0,
+      "lane": 4,
+      "text": "[Dom] Bubble economy collapse. Land and stock prices plummet. \"Lost Decade\" begins."
+    },
+    {
+      "year": 1993.0,
+      "lane": 4,
+      "text": "[Tech] Commercial internet use begins in US"
+    },
+    {
+      "year": 1993.3333333333333,
+      "lane": 4,
+      "text": "[Tech] CERN provides WWW free to the world"
+    },
+    {
+      "year": 1994.0,
+      "lane": 4,
+      "text": "[Tech] Japan's first commercial internet service begins (IIJ)"
+    },
+    {
+      "year": 1994.0833333333333,
+      "lane": 4,
+      "text": "[Int] US: Yahoo! Inc. established"
+    },
+    {
+      "year": 1994.5833333333333,
+      "lane": 2,
+      "text": "Stock registered on JASDAQ"
+    },
+    {
+      "year": 1995.0,
+      "lane": 2,
+      "text": "Acquired Ziff Davis exhibition division (20B yen)"
+    },
+    {
+      "year": 1995.25,
+      "lane": 4,
+      "text": "[Int] US: Yahoo! Inc. incorporated"
+    },
+    {
+      "year": 1995.3333333333333,
+      "lane": 2,
+      "text": "Acquired exhibition business (Comdex)"
+    },
+    {
+      "year": 1995.5833333333333,
+      "lane": 3,
+      "text": "Frontier Market system established"
+    },
+    {
+      "year": 1995.5833333333333,
+      "lane": 2,
+      "text": "Launched \"Game Bank\" with Microsoft"
+    },
+    {
+      "year": 1995.8333333333333,
+      "lane": 2,
+      "text": "SoftBank partners with 14 banks"
+    },
+    {
+      "year": 1995.9166666666667,
+      "lane": 4,
+      "text": "[Tech] Windows 95 (Japanese version) released"
+    },
+    {
+      "year": 1995.9166666666667,
+      "lane": 3,
+      "text": "Basic Science and Technology Law enacted"
+    },
+    {
+      "year": 1996.0833333333333,
+      "lane": 2,
+      "text": "Establishes Yahoo! JAPAN with US Yahoo!"
+    },
+    {
+      "year": 1996.1666666666667,
+      "lane": 2,
+      "text": "Acquired Ziff publishing division"
+    },
+    {
+      "year": 1996.3333333333333,
+      "lane": 4,
+      "text": "[Int] IPO: Listed on NASDAQ"
+    },
+    {
+      "year": 1996.3333333333333,
+      "lane": 2,
+      "text": "Yahoo! JAPAN service begins"
+    },
+    {
+      "year": 1996.5,
+      "lane": 2,
+      "text": "Acquired TV Asahi shares"
+    },
+    {
+      "year": 1996.6666666666667,
+      "lane": 2,
+      "text": "Acquired US Kingston Technology shares"
+    },
+    {
+      "year": 1996.9166666666667,
+      "lane": 3,
+      "text": "Hashimoto cabinet announces \"Financial Big Bang\""
+    },
+    {
+      "year": 1997.1666666666667,
+      "lane": 1,
+      "text": "(e.g., Hiroshi Mikitani establishes M.D.M. (now Rakuten))"
+    },
+    {
+      "year": 1997.4166666666667,
+      "lane": 3,
+      "text": "Commercial Code revision (Stock options fully liberalized)"
+    },
+    {
+      "year": 1997.5,
+      "lane": 3,
+      "text": "Antitrust Law revision (Pure holding companies permitted)"
+    },
+    {
+      "year": 1997.5833333333333,
+      "lane": 4,
+      "text": "[Int] Asian currency crisis"
+    },
+    {
+      "year": 1997.5833333333333,
+      "lane": 3,
+      "text": "Green Sheet system → Unlisted stock market begins"
+    },
+    {
+      "year": 1997.9166666666667,
+      "lane": 4,
+      "text": "[Int] US IT bubble becomes apparent\n[Dom] Financial crisis (Yamaichi Securities, Hokkaido Takushoku Bank fail)"
+    },
+    {
+      "year": 1997.9166666666667,
+      "lane": 2,
+      "text": "Yahoo! JAPAN listed on JASDAQ"
+    },
+    {
+      "year": 1998.25,
+      "lane": 1,
+      "text": "(e.g., Susumu Fujita establishes CyberAgent)"
+    },
+    {
+      "year": 1998.4166666666667,
+      "lane": 3,
+      "text": "Limited Partnership Act for Investment (LPS Act)"
+    },
+    {
+      "year": 1999.0,
+      "lane": 4,
+      "text": "[Dom] Financial Big Bang"
+    },
+    {
+      "year": 1999.0,
+      "lane": 3,
+      "text": "Financial System Reform Act"
+    },
+    {
+      "year": 1999.1666666666667,
+      "lane": 3,
+      "text": "Zero interest rate policy begins"
+    },
+    {
+      "year": 1999.5,
+      "lane": 2,
+      "text": "Nasdaq Japan concept announced"
+    },
+    {
+      "year": 1999.8333333333333,
+      "lane": 3,
+      "text": "Complete liberalization of stock trading commission fees"
+    },
+    {
+      "year": 1999.9166666666667,
+      "lane": 4,
+      "text": "[Dom] IT bubble (dot-com bubble) fully develops in Japan"
+    },
+    {
+      "year": 1999.9166666666667,
+      "lane": 3,
+      "text": "TSE establishes Mothers"
+    },
+    {
+      "year": 1999.9166666666667,
+      "lane": 1,
+      "text": "TSE: Mothers established"
+    },
+    {
+      "year": 2000.0833333333333,
+      "lane": 2,
+      "text": "Yahoo! Japan: Trading at over 100M yen per share"
+    },
+    {
+      "year": 2000.25,
+      "lane": 1,
+      "text": "(e.g., CyberAgent listed on Mothers)"
+    },
+    {
+      "year": 2000.3333333333333,
+      "lane": 1,
+      "text": "(e.g., Rakuten listed on JASDAQ)"
+    },
+    {
+      "year": 2000.4166666666667,
+      "lane": 2,
+      "text": "Establishes BB Technologies → Enters broadband business"
+    },
+    {
+      "year": 2000.5,
+      "lane": 3,
+      "text": "Nasdaq Japan established"
+    },
+    {
+      "year": 2000.5,
+      "lane": 2,
+      "text": "Masayoshi Son becomes vice chairman of Nasdaq Japan"
+    },
+    {
+      "year": 2000.5,
+      "lane": 1,
+      "text": "Nasdaq Japan established"
+    },
+    {
+      "year": 2004.4166666666667,
+      "lane": 2,
+      "text": "Acquires Japan Telecom → Enters fixed-line business"
+    },
+    {
+      "year": 2005.0,
+      "lane": 3,
+      "text": "JASDAQ OTC market → Stock exchange"
+    },
+    {
+      "year": 2006.3333333333333,
+      "lane": 2,
+      "text": "Acquires Vodafone Japan → Full entry into mobile communications"
+    },
+    {
+      "year": 2008.5833333333333,
+      "lane": 4,
+      "text": "[Tech] iPhone arrives in Japan"
+    },
+    {
+      "year": 2008.5833333333333,
+      "lane": 2,
+      "text": "iPhone 3G launched"
+    }
+  ],
+  "yearRange": {
+    "min": 1981,
+    "max": 2008
+  }
+};
+
+        // ============================================
+        // Time Grid System (月単位の可変グリッド)
+        // ============================================
+        
+        // 定数定義
+        const EVENT_WIDTH = 240;
+        const EVENT_HEIGHT = 75;
+        const HORIZONTAL_SPACING = 15; // イベント間の間隔
+        const MONTH_PADDING = 20; // 月ブロック内の左右余白
+        const MIN_YEAR_WIDTH = 60; // 年ラベル表示のための最小年幅
+
+        /**
+         * イベントの年から年・月を取得
+         * @param {number} year - 1981.75 のような年の値
+         * @returns {Object} {year: 1981, month: 9} (monthは0-11)
+         */
+        function getYearMonth(year) {
+            const yearInt = Math.floor(year);
+            const month = Math.floor((year - yearInt) * 12);
+            return { year: yearInt, month: Math.min(11, Math.max(0, month)) };
+        }
+
+        /**
+         * 年・月から月キーを生成 (例: "1990-01")
+         * @param {number} year 
+         * @param {number} month (0-11)
+         * @returns {string}
+         */
+        function getMonthKey(year, month) {
+            return `${year}-${String(month).padStart(2, '0')}`;
+        }
+
+        /**
+         * すべての月を列挙
+         * @param {number} minYear 
+         * @param {number} maxYear 
+         * @returns {Array<{year: number, month: number, key: string}>}
+         */
+        function enumerateAllMonths(minYear, maxYear) {
+            const months = [];
+            for (let year = minYear; year <= maxYear; year++) {
+                for (let month = 0; month < 12; month++) {
+                    months.push({
+                        year,
+                        month,
+                        key: getMonthKey(year, month)
+                    });
+                }
+            }
+            return months;
+        }
+
+        /**
+         * イベントを月ごとにグループ化（全レーン統合）
+         * @param {Array} events 
+         * @returns {Object} { "1990-01": [event1, event2], ... }
+         */
+        function groupEventsByMonth(events) {
+            const eventsByMonth = {};
+            events.forEach(event => {
+                const { year, month } = getYearMonth(event.year);
+                const monthKey = getMonthKey(year, month);
+                if (!eventsByMonth[monthKey]) {
+                    eventsByMonth[monthKey] = [];
+                }
+                eventsByMonth[monthKey].push(event);
+            });
+            return eventsByMonth;
+        }
+
+        /**
+         * 月ブロックの幅を計算（空白月は0px）
+         * @param {Array} monthEvents - その月の全イベント（全レーン）
+         * @param {number} laneId - 現在のレーンID
+         * @returns {number} 月ブロックの幅（イベントがない場合は0）
+         */
+        function calculateMonthWidth(monthEvents, laneId) {
+            if (!monthEvents || monthEvents.length === 0) {
+                return 0; // 空白月は0px
+            }
+            
+            // その月・そのレーンのイベント数をカウント
+            const laneEvents = monthEvents.filter(e => e.lane === laneId);
+            if (laneEvents.length === 0) {
+                return 0; // 空白月は0px
+            }
+            
+            // 同じ月・同じレーンに複数のイベントがある場合は横並び
+            const eventCount = laneEvents.length;
+            const totalEventWidth = eventCount * EVENT_WIDTH + (eventCount - 1) * HORIZONTAL_SPACING;
+            const monthWidth = totalEventWidth + MONTH_PADDING * 2;
+            
+            return Math.max(MONTH_PADDING * 2 + EVENT_WIDTH, monthWidth);
+        }
+
+        /**
+         * タイムグリッドを計算（月ごとの幅とX座標を決定）
+         * 空白月は0pxに圧縮し、空白年の場合は年ラベル表示のため最小60pxを確保
+         * @param {Array} events - 全イベント
+         * @param {number} minYear 
+         * @param {number} maxYear 
+         * @returns {Object} { monthMap: {...}, totalWidth: number, yearStartPositions: {...} }
+         */
+        function calculateTimeGrid(events, minYear, maxYear) {
+            const allMonths = enumerateAllMonths(minYear, maxYear);
+            const eventsByMonth = groupEventsByMonth(events);
+            
+            // 各レーンごとの月幅を計算し、最大値を取る（空白月は0px）
+            const monthWidths = {};
+            const monthEventsMap = {};
+            
+            allMonths.forEach(({ key, year, month }) => {
+                const monthEvents = eventsByMonth[key] || [];
+                monthEventsMap[key] = monthEvents;
+                
+                // 全レーン（1-4）で最も広い月幅を使用
+                let maxWidth = 0; // デフォルトは0px（空白月）
+                [1, 2, 3, 4].forEach(laneId => {
+                    const width = calculateMonthWidth(monthEvents, laneId);
+                    maxWidth = Math.max(maxWidth, width);
+                });
+                monthWidths[key] = maxWidth;
+            });
+            
+            // 年ごとに最小幅を保証（年ラベル表示のため）
+            for (let year = minYear; year <= maxYear; year++) {
+                // その年の12ヶ月の合計幅を計算
+                let yearTotalWidth = 0;
+                for (let month = 0; month < 12; month++) {
+                    const monthKey = getMonthKey(year, month);
+                    yearTotalWidth += monthWidths[monthKey] || 0;
+                }
+                
+                // 合計幅が最小年幅未満の場合、1月の幅を最小年幅に設定
+                if (yearTotalWidth < MIN_YEAR_WIDTH) {
+                    const januaryKey = getMonthKey(year, 0);
+                    // 1月の幅を最小年幅に設定（他の月は0pxのまま）
+                    monthWidths[januaryKey] = MIN_YEAR_WIDTH;
+                }
+            }
+            
+            // X座標を計算（累積幅）
+            const monthPositions = {};
+            let currentX = 0;
+            const yearStartPositions = {}; // 各年の1月の位置を記録
+            
+            allMonths.forEach(({ key, year, month }) => {
+                const width = monthWidths[key];
+                monthPositions[key] = {
+                    startX: currentX,
+                    width: width,
+                    events: monthEventsMap[key] || []
+                };
+                
+                // 1月（month === 0）の場合は年の開始位置として記録
+                if (month === 0) {
+                    yearStartPositions[year] = currentX;
+                }
+                
+                currentX += width;
+            });
+            
+            return {
+                monthMap: monthPositions,
+                totalWidth: currentX,
+                yearStartPositions: yearStartPositions
+            };
+        }
+
+        /**
+         * イベントテキストを処理（複数行分割、プレフィックス抽出など）
+         */
+        function processEventText(text) {
+            const prefixMap = {
+                '[Tech]': 'Technology',
+                '[Int]': 'International',
+                '[Dom]': 'Domestic'
+            };
+            
+            let processedText = text || '';
+            
+            // (e.g., )で始まる括弧全体を削除
+            const trimmedText = processedText.trim();
+            if (trimmedText.match(/^\(e\.g\./i)) {
+                processedText = processedText.replace(/^\(e\.g\.\s*,?\s*/i, '').trim();
+                if (processedText.trim().endsWith(')')) {
+                    let openCount = (processedText.match(/\(/g) || []).length;
+                    let closeCount = (processedText.match(/\)/g) || []).length;
+                    if (closeCount > openCount) {
+                        processedText = processedText.replace(/\)\s*$/, '').trim();
+                    }
+                }
+            }
+            
+            return processedText;
+        }
+
+        /**
+         * イベントを展開（複数行に分かれている場合は分割）
+         */
+        function expandEvents(events) {
+            const expandedEvents = [];
+            const prefixMap = {
+                '[Tech]': 'Technology',
+                '[Int]': 'International',
+                '[Dom]': 'Domestic'
+            };
+            
+            events.forEach(event => {
+                let processedText = processEventText(event.text);
+                
+                // 複数行に分かれているかチェック
+                const lines = processedText.split('\n').filter(line => line.trim() !== '');
+                
+                if (lines.length > 1) {
+                    lines.forEach(line => {
+                        const trimmedLine = line.trim();
+                        if (trimmedLine) {
+                            // プレフィックスをチェック
+                            let hasPrefix = false;
+                            for (const prefix of Object.keys(prefixMap)) {
+                                if (trimmedLine.startsWith(prefix)) {
+                                    hasPrefix = true;
+                                    break;
+                                }
+                            }
+                            
+                            if (hasPrefix) {
+                                expandedEvents.push({
+                                    year: event.year,
+                                    lane: event.lane,
+                                    text: trimmedLine
+                                });
+                            }
+                        }
+                    });
+                } else {
+                    expandedEvents.push({
+                        year: event.year,
+                        lane: event.lane,
+                        text: processedText
+                    });
+                }
+            });
+            
+            return expandedEvents;
+        }
+
+        /**
+         * イベントボックスのDOMを作成
+         */
+        function createEventBoxDOM(event, x, y, laneHeight, lanePositions, laneId) {
+            const eventBox = document.createElement('div');
+            eventBox.className = `event-box event-lane-${event.lane}`;
+            eventBox.style.left = x + 'px';
+            eventBox.style.top = y + 'px';
+            eventBox.style.visibility = 'visible';
+            eventBox.style.opacity = '1';
+            eventBox.style.display = 'block';
+            eventBox.style.zIndex = '20';
+            
+            // イベントボックスの枠線色を設定
+            const laneColors = {
+                4: '#64748b',  // Field
+                3: '#6b7280',  // Institution
+                2: '#64748b',  // Game Changer
+                1: '#475569'   // Rule Change
+            };
+            eventBox.style.borderLeft = `4px solid ${laneColors[event.lane] || '#64748b'}`;
+            
+            // テキスト処理
+            let processedText = processEventText(event.text);
+            const prefixMap = {
+                '[Tech]': 'Technology',
+                '[Int]': 'International',
+                '[Dom]': 'Domestic'
+            };
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'event-content';
+            
+            // Acquired/Acquiresをチェック
+            const acquiredMatch = processedText.match(/^(Acquired|Acquires)\s+(.+)/i);
+            
+            if (acquiredMatch) {
+                // M&Aタイトルを表示
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'event-title';
+                titleDiv.textContent = 'M&A';
+                contentDiv.appendChild(titleDiv);
+                
+                // 買収先企業名を抽出
+                let companyName = acquiredMatch[2];
+                if (companyName.includes('→')) {
+                    companyName = companyName.split('→')[0].trim();
+                }
+                companyName = companyName.replace(/\s*\([^)]*\)\s*$/, '');
+                companyName = companyName.replace(/\s+(shares|division|business)$/i, '').trim();
+                
+                if (companyName) {
+                    const textDiv = document.createElement('div');
+                    textDiv.className = 'event-body';
+                    textDiv.textContent = companyName;
+                    contentDiv.appendChild(textDiv);
+                }
+            } else {
+                // プレフィックスをチェック
+                let linePrefixFound = null;
+                let linePrefixLabel = null;
+                for (const [prefix, label] of Object.entries(prefixMap)) {
+                    if (processedText.trim().startsWith(prefix)) {
+                        linePrefixFound = prefix;
+                        linePrefixLabel = label;
+                        break;
+                    }
+                }
+                
+                if (linePrefixFound && linePrefixLabel) {
+                    // プレフィックスをタイトルとして表示
+                    const titleDiv = document.createElement('div');
+                    titleDiv.className = 'event-title';
+                    titleDiv.textContent = linePrefixLabel;
+                    contentDiv.appendChild(titleDiv);
+                    
+                    // 残りのテキスト
+                    const textContent = processedText.substring(linePrefixFound.length).trim();
+                    if (textContent) {
+                        const textDiv = document.createElement('div');
+                        textDiv.className = 'event-body';
+                        textDiv.textContent = textContent;
+                        contentDiv.appendChild(textDiv);
+                    }
+                } else {
+                    // プレフィックスがない場合は通常のテキストとして表示
+                    const textDiv = document.createElement('div');
+                    textDiv.className = 'event-body';
+                    textDiv.textContent = processedText || '';
+                    contentDiv.appendChild(textDiv);
+                }
+            }
+            
+            eventBox.appendChild(contentDiv);
+            
+            // レーン内に収まるように最大高さを制限
+            const maxHeight = laneHeight - 10;
+            eventBox.style.maxHeight = maxHeight + 'px';
+            eventBox.style.overflowY = 'auto';
+            
+            return eventBox;
+        }
+
+        function renderTimeline(data) {
+            const timeline = document.getElementById('timeline');
+            const phaseBandsTimeline = document.getElementById('phaseBandsTimeline');
+            const yearAxis = document.getElementById('yearAxis');
+            const yearAxisContent = document.getElementById('yearAxisContent');
+            const lanesContainer = document.getElementById('lanes');
+            const eventsContainer = document.getElementById('events');
+
+            // 既存のコンテンツをクリア
+            if (phaseBandsTimeline) phaseBandsTimeline.innerHTML = '';
+            if (lanesContainer) lanesContainer.innerHTML = '';
+            if (eventsContainer) eventsContainer.innerHTML = '';
+            if (yearAxisContent) yearAxisContent.innerHTML = '';
+
+            const minYear = data.yearRange.min;
+            const maxYear = data.yearRange.max;
+            
+            // イベントを展開
+            const expandedEvents = expandEvents(data.events);
+            
+            // タイムグリッドを計算（月ベース）
+            const { monthMap, totalWidth, yearStartPositions } = calculateTimeGrid(expandedEvents, minYear, maxYear);
+            const timelineWidth = totalWidth;
+
+            // タイムラインの幅を設定
+            timeline.style.width = timelineWidth + 'px';
+            timeline.style.minWidth = timelineWidth + 'px';
+            
+            // 年軸の幅を設定
+            if (yearAxis) {
+                yearAxis.style.width = timelineWidth + 'px';
+                yearAxis.style.minWidth = timelineWidth + 'px';
+            }
+            if (yearAxisContent) {
+                yearAxisContent.style.width = timelineWidth + 'px';
+                yearAxisContent.style.minWidth = timelineWidth + 'px';
+                yearAxisContent.style.height = '50px';
+            }
+            
+            // Lane height: window.innerHeightから直接計算（DOMレンダリング待ちを回避）
+            const wrapperHeight = window.innerHeight - 150; // タイトル + 年軸の高さを考慮
+            const laneHeight = wrapperHeight / 4;
+            const laneHeightPx = Math.floor(laneHeight);
+
+            // Render phase bands in timeline (月ベースで計算)
+            data.phases.forEach(phase => {
+                // フェーズの開始月と終了月を計算
+                const startMonthKey = getMonthKey(phase.start, 0); // 開始年の1月
+                const endMonthKey = getMonthKey(phase.end, 11); // 終了年の12月
+                
+                let phaseStartX = 0;
+                let phaseEndX = 0;
+                let foundStart = false;
+                
+                // 月マップからフェーズの位置を計算
+                Object.keys(monthMap).sort().forEach(monthKey => {
+                    const monthInfo = monthMap[monthKey];
+                    if (!foundStart && monthKey >= startMonthKey) {
+                        phaseStartX = monthInfo.startX;
+                        foundStart = true;
+                    }
+                    if (monthKey <= endMonthKey) {
+                        phaseEndX = monthInfo.startX + monthInfo.width;
+                    }
+                });
+                
+                const band = document.createElement('div');
+                band.className = 'phase-band';
+                band.style.left = phaseStartX + 'px';
+                band.style.width = (phaseEndX - phaseStartX) + 'px';
+                band.style.height = '100%';
+                phaseBandsTimeline.appendChild(band);
+
+                // Phase label in year axis (年軸エリアに配置)
+                if (yearAxisContent) {
+                    const label = document.createElement('div');
+                    label.className = 'phase-label';
+                    label.textContent = phase.label;
+                    label.style.left = (phaseStartX + (phaseEndX - phaseStartX) / 2) + 'px';
+                    label.style.transform = 'translateX(-50%)';
+                    yearAxisContent.appendChild(label);
+                }
+            });
+
+            // Render year axis (年軸エリアに配置)
+            // 年ラベルを各年の1月の位置に配置
+            for (let year = minYear; year <= maxYear; year += 1) {
+                if (yearStartPositions[year] !== undefined) {
+                    const x = yearStartPositions[year];
+                    
+                    const label = document.createElement('div');
+                    label.className = 'year-label';
+                    label.textContent = year;
+                    label.style.left = x + 'px';
+                    label.style.position = 'absolute';
+                    
+                    yearAxisContent.appendChild(label);
+                }
+            }
+
+            // Render lanes - exactly 1/4 height each
+            // レーンIDの順序を保証: 上から下に [4, 3, 2, 1]
+            const laneIds = [4, 3, 2, 1];
+            const lanePositions = {};
+            laneIds.forEach((laneId, index) => {
+                lanePositions[laneId] = index * laneHeightPx;
+            });
+            
+            // レーンをレンダリング
+            laneIds.forEach(laneId => {
+                const lane = document.createElement('div');
+                lane.className = `lane lane-${laneId}`;
+                lane.style.top = lanePositions[laneId] + 'px';
+                lane.style.height = laneHeightPx + 'px';
+                lane.style.width = timelineWidth + 'px';
+                
+                const laneLine = document.createElement('div');
+                laneLine.className = 'lane-line';
+                lane.appendChild(laneLine);
+
+                const laneLabel = document.createElement('div');
+                laneLabel.className = 'lane-label';
+                laneLabel.textContent = data.lanes[laneId];
+                laneLabel.style.height = laneHeightPx + 'px';
+                lane.appendChild(laneLabel);
+
+                lanesContainer.appendChild(lane);
+            });
+
+            // 年表レーンを横断する縦線を追加（各年の1月の位置に）
+            const totalLaneHeight = laneHeightPx * 4;
+            for (let year = minYear; year <= maxYear; year += 1) {
+                if (yearStartPositions[year] !== undefined) {
+                    const x = yearStartPositions[year];
+                    
+                    const verticalLine = document.createElement('div');
+                    verticalLine.className = 'year-vertical-line';
+                    verticalLine.setAttribute('data-year', year.toString());
+                    verticalLine.style.left = x + 'px';
+                    verticalLine.style.position = 'absolute';
+                    verticalLine.style.top = '0';
+                    verticalLine.style.width = '1px';
+                    verticalLine.style.height = totalLaneHeight + 'px';
+                    verticalLine.style.background = '#ced4da';
+                    verticalLine.style.pointerEvents = 'none';
+                    verticalLine.style.zIndex = '1';
+                    verticalLine.style.opacity = '0.6';
+                    
+                    lanesContainer.appendChild(verticalLine);
+                }
+            }
+
+            // レーンヘッダーとレーンの高さを完全に同期
+            const headerElements = document.querySelectorAll('.lane-header');
+            const laneOrder = [4, 3, 2, 1]; // 上から下の順序
+            laneOrder.forEach((laneId, index) => {
+                if (headerElements[index]) {
+                    headerElements[index].style.height = laneHeightPx + 'px';
+                    headerElements[index].style.minHeight = laneHeightPx + 'px';
+                    headerElements[index].style.maxHeight = laneHeightPx + 'px';
+                    headerElements[index].style.flexShrink = '0';
+                    headerElements[index].style.flexGrow = '0';
+                }
+            });
+
+            // イベントをレーンごとにグループ化
+            const eventsByLane = {};
+            expandedEvents.forEach(event => {
+                if (!eventsByLane[event.lane]) {
+                    eventsByLane[event.lane] = [];
+                }
+                eventsByLane[event.lane].push(event);
+            });
+
+            // レーンごとにイベントを配置（月ベースのグリッドシステム）
+            [4, 3, 2, 1].forEach(laneId => {
+                const laneEvents = eventsByLane[laneId] || [];
+                const laneY = lanePositions[laneId];
+                
+                // イベントを月ごとにグループ化
+                const eventsByMonthInLane = {};
+                laneEvents.forEach(event => {
+                    const { year, month } = getYearMonth(event.year);
+                    const monthKey = getMonthKey(year, month);
+                    if (!eventsByMonthInLane[monthKey]) {
+                        eventsByMonthInLane[monthKey] = [];
+                    }
+                    eventsByMonthInLane[monthKey].push(event);
+                });
+                
+                // 各月のイベントを配置
+                Object.keys(eventsByMonthInLane).sort().forEach(monthKey => {
+                    const monthEvents = eventsByMonthInLane[monthKey];
+                    const monthInfo = monthMap[monthKey];
+                    
+                    if (!monthInfo) {
+                        console.warn(`Month ${monthKey} not found in monthMap`);
+                        return;
+                    }
+                    
+                    // 月ブロック内でイベントを横並びに配置
+                    const monthStartX = monthInfo.startX;
+                    let eventX = monthStartX + MONTH_PADDING;
+                    
+                    monthEvents.forEach((event, index) => {
+                        // イベントボックスを作成
+                        const initialY = laneY + (laneHeightPx - EVENT_HEIGHT) / 2;
+                        const eventBox = createEventBoxDOM(event, eventX, initialY, laneHeightPx, lanePositions, laneId);
+                        
+                        // DOMに追加
+                        eventsContainer.appendChild(eventBox);
+                        
+                        // 実際の高さを取得して中央揃え
+                        const actualHeight = eventBox.offsetHeight;
+                        const maxHeight = laneHeightPx - 10;
+                        const actualHeightClamped = Math.min(actualHeight, maxHeight);
+                        const laneCenterY = laneY + laneHeightPx / 2;
+                        const centeredY = laneCenterY - actualHeightClamped / 2;
+                        eventBox.style.top = centeredY + 'px';
+                        
+                        // 次のイベントの位置を更新
+                        eventX += EVENT_WIDTH + HORIZONTAL_SPACING;
+                    });
+                });
+            });
+
+            // レーンの幅を更新
+            document.querySelectorAll('.lane').forEach(lane => {
+                lane.style.width = timelineWidth + 'px';
+            });
+            
+            // スクロール同期を設定
+            setTimeout(() => {
+                syncYearAxisScroll();
+            }, 50);
+        }
+
+        // レーンヘッダーとレーンの高さを再同期する関数
+        function syncHeaderAndLaneHeights() {
+            const headerElements = document.querySelectorAll('.lane-header');
+            const lanes = document.querySelectorAll('.lane');
+            
+            if (headerElements.length === 0) return;
+            
+            // window.innerHeightから直接計算（DOMレンダリング待ちを回避）
+            const wrapperHeight = window.innerHeight - 150; // タイトル + 年軸の高さを考慮
+            const laneHeight = wrapperHeight / 4;
+            const laneHeightPx = Math.floor(laneHeight);
+            
+            // レーン順序: [0]=4, [1]=3, [2]=2, [3]=1 (上から下の順)
+            // ヘッダー順序も同じ: [0]=4, [1]=3, [2]=2, [3]=1 (上から下の順)
+            const laneOrder = [4, 3, 2, 1]; // 上から下の順序
+            laneOrder.forEach((laneId, index) => {
+                // ヘッダーはDOM順で取得されるので、indexで直接アクセス
+                if (headerElements[index]) {
+                    headerElements[index].style.height = laneHeightPx + 'px';
+                    headerElements[index].style.minHeight = laneHeightPx + 'px';
+                    headerElements[index].style.maxHeight = laneHeightPx + 'px';
+                    headerElements[index].style.flexShrink = '0';
+                    headerElements[index].style.flexGrow = '0';
+                }
+                // レーンもDOM順で取得されるので、indexで直接アクセス
+                if (lanes[index]) {
+                    lanes[index].style.height = laneHeightPx + 'px';
+                    // レーンの位置も再計算（上から順に）
+                    lanes[index].style.top = (index * laneHeightPx) + 'px';
+                }
+            });
+        }
+        
+        // Initialize ResizeObserver to monitor timeline container size changes
+        function initResizeObserver() {
+            const timeline = document.getElementById('timeline');
+            const mainContentWrapper = document.querySelector('.main-content-wrapper');
+            
+            if (!timeline || !mainContentWrapper) return;
+            
+            // Create ResizeObserver to watch for layout changes
+            const resizeObserver = new ResizeObserver(() => {
+                syncHeaderAndLaneHeights();
+            });
+            
+            // Observe timeline-container and main-content-wrapper for size changes
+            resizeObserver.observe(timeline);
+            resizeObserver.observe(mainContentWrapper);
+            
+            // Also observe window resize events
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    syncHeaderAndLaneHeights();
+                }, 100); // Debounce resize events
+            });
+        }
+
+        // 年軸をタイムラインの横スクロールに連動させる
+        function syncYearAxisScroll() {
+            const timelineWrapper = document.querySelector('.timeline-wrapper');
+            const yearAxisWrapper = document.querySelector('.year-axis-wrapper');
+            
+            if (!timelineWrapper || !yearAxisWrapper) {
+                console.warn('Year axis scroll sync: Elements not found');
+                return;
+            }
+            
+            // タイムラインのスクロール位置に合わせて年軸をスクロール
+            function syncScroll() {
+                const scrollLeft = timelineWrapper.scrollLeft;
+                // 年軸ラッパーをスクロールして同期
+                if (yearAxisWrapper.scrollLeft !== scrollLeft) {
+                yearAxisWrapper.scrollLeft = scrollLeft;
+                }
+            }
+            
+            // スクロールイベントで同期（既存のリスナーを削除してから追加）
+            // 注意: removeEventListenerで削除するため、関数を変数に保存
+            if (timelineWrapper._syncScrollHandler) {
+                timelineWrapper.removeEventListener('scroll', timelineWrapper._syncScrollHandler);
+            }
+            timelineWrapper._syncScrollHandler = syncScroll;
+            timelineWrapper.addEventListener('scroll', syncScroll, { passive: true });
+            
+            // 年軸のスクロールイベントも監視（双方向同期）
+            if (yearAxisWrapper._syncScrollHandler) {
+                yearAxisWrapper.removeEventListener('scroll', yearAxisWrapper._syncScrollHandler);
+            }
+            yearAxisWrapper._syncScrollHandler = function() {
+                if (timelineWrapper.scrollLeft !== yearAxisWrapper.scrollLeft) {
+                    timelineWrapper.scrollLeft = yearAxisWrapper.scrollLeft;
+                }
+            };
+            yearAxisWrapper.addEventListener('scroll', yearAxisWrapper._syncScrollHandler, { passive: true });
+            
+            // 初期位置も同期（少し遅延させて確実に実行）
+            setTimeout(() => {
+                syncScroll();
+            }, 50);
+        }
+
+        // Initialize on page load
+        renderTimeline(data);
+        
+        // Initialize ResizeObserver after initial render
+        setTimeout(() => {
+            initResizeObserver();
+            // 初期化後に一度同期を実行
+            syncHeaderAndLaneHeights();
+            // 年軸のスクロール同期を設定（少し遅延させて確実に実行）
+            setTimeout(() => {
+                syncYearAxisScroll();
+            }, 150);
+        }, 100);
+    </script>
+</body>
+</html>

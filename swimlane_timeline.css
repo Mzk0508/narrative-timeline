@@ -1,0 +1,524 @@
+/* ============================================
+   Modern Editorial Style - Academic Presentation
+   ============================================
+   コンセプト: New York Times / 学術誌スタイル
+   - フラットデザイン、高コントラスト、タイポグラフィ中心
+   - プロジェクター投影時の視認性を最優先
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    /* グラデーション廃止: 目に優しいオフホワイト */
+    background: #f8f9fa;
+    color: #2c3e50;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* 上下スクロールを完全に無効化 */
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.container {
+    min-width: 100vw;
+    padding: 10px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* タイトル: 装飾削減、太字と色のみで強調 */
+.title {
+    font-family: 'Inter', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    /* グラデーション削除: ソリッドカラーに変更 */
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+    flex-shrink: 0;
+    letter-spacing: -0.5px;
+    /* text-shadow削除: 学術的厳格さを重視 */
+}
+
+/* 年軸コンテナ: タイトルの下に配置 */
+.year-axis-container {
+    display: flex;
+    width: 100%;
+    position: relative;
+    z-index: 100;
+    background: #ffffff;
+    border-bottom: 2px solid #dee2e6;
+    overflow: hidden;
+}
+
+.year-axis-spacer {
+    width: 220px;
+    flex-shrink: 0;
+}
+
+/* メインコンテンツラッパー: 左ヘッダーとタイムラインを横並びに */
+.main-content-wrapper {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    width: 100%;
+}
+
+.timeline-wrapper {
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex: 1;
+    min-height: 0;
+    /* グラデーション・角丸・影を削除: フラットに */
+    background: #ffffff;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.timeline-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow-x: visible;
+    overflow-y: hidden;
+    min-height: 400px;
+}
+
+/* 左ヘッダー: 固定幅、高さは親要素に合わせる */
+.left-header {
+    width: 220px;
+    flex-shrink: 0;
+    background: #063763;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
+    /* 高さを確実に確保 */
+    height: 100%;
+    overflow: hidden;
+}
+
+/* レーンヘッダー: 中央揃え、ダークテーマ、カラー適用 */
+/* Editorial: 洗練されたテキストスタイル、引き締まった印象 */
+.lane-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+    padding: 0 16px;
+    /* flex: 1を削除し、JavaScriptで設定した高さを確実に使用 */
+    flex-shrink: 0;
+    flex-grow: 0;
+    position: relative;
+    transition: background 0.2s ease;
+    /* 最小高さを設定して崩れを防止 */
+    min-height: 100px;
+    box-sizing: border-box;
+    /* テキストを確実に中央配置 */
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+/* 左端のアクセント: ダーク背景に映えるよう輝度調整 */
+.lane-header::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: var(--lane-color);
+    opacity: 1;
+    filter: brightness(1.3);
+    z-index: 1;
+}
+
+.lane-header:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* 各レーンヘッダーの背景色 - 年表レーンの色を少し濃くした感じ */
+/* Lane 4 (Field): 白 → 薄いグレー */
+.lane-header-4 {
+    background: rgba(243, 244, 246, 0.4);
+}
+.lane-header-4:hover {
+    background: rgba(243, 244, 246, 0.5);
+}
+
+/* Lane 3 (Institution): 灰色 → やや濃い灰色 */
+.lane-header-3 {
+    background: rgba(209, 213, 219, 0.5);
+}
+.lane-header-3:hover {
+    background: rgba(209, 213, 219, 0.6);
+}
+
+/* Lane 2 (Game Changer): 薄い青 → 落ち着いた青 */
+.lane-header-2 {
+    background: rgba(100, 116, 139, 0.3); /* スレートブルーグレー */
+}
+.lane-header-2:hover {
+    background: rgba(100, 116, 139, 0.4);
+}
+
+/* Lane 1 (Rule Change): 落ち着いた青 → 濃い落ち着いた青 */
+.lane-header-1 {
+    background: rgba(71, 85, 105, 0.4); /* スレートブルー */
+}
+.lane-header-1:hover {
+    background: rgba(71, 85, 105, 0.5);
+}
+
+.phase-bands {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 40px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.phase-bands-timeline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* フェーズバンド: グラデーション削除、薄いグレー背景に */
+.phase-band {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background: #f1f3f5;
+    border-left: 1px solid #ced4da;
+    border-right: 1px solid #ced4da;
+}
+
+/* フェーズラベル: 角丸削減、シンプルに */
+.phase-label {
+    position: absolute;
+    top: -30px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #495057;
+    text-align: center;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    background: #e9ecef;
+    padding: 4px 10px;
+    border-radius: 2px;
+}
+
+/* レーン: 薄い背景色で区別、控えめな罫線で区切り */
+/* Editorial: コンテンツを邪魔しない、非常に薄い境界線 */
+.lane {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-bottom: 1px solid #f1f5f9;
+    height: calc(100% / 4);
+    /* 各レーンに薄い背景色を設定: 区別しやすく */
+    background: var(--lane-bg-color);
+    transition: none;
+}
+
+.lane-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    /* Editorial: 非常に薄い色でコンテンツを邪魔しない */
+    background: #f1f5f9;
+    top: 50%;
+    opacity: 1;
+}
+
+/* ============================================
+   色彩設計: 白→灰色→薄い青→青 の系統（上から順）
+   ============================================ */
+
+/* Lane 4: Field (Context) -> 白（一番上） */
+.lane-4 { 
+    --lane-color: #94a3b8; /* アクセントカラー（グレー） */
+    --lane-bg-color: #ffffff; /* 白 */
+}
+.event-lane-4 { --event-color: #64748b; }
+
+/* Lane 3: Institution (Insider) -> 灰色（二番目） */
+.lane-3 { 
+    --lane-color: #6b7280; /* アクセントカラー（グレー） */
+    --lane-bg-color: #f3f4f6; /* 灰色 */
+}
+.event-lane-3 { --event-color: #6b7280; }
+
+/* Lane 2: Game Changer (SoftBank) -> 薄い青（三番目） */
+.lane-2 { 
+    --lane-color: #64748b; /* アクセントカラー（落ち着いたグレーブルー） */
+    --lane-bg-color: #e2e8f0; /* 薄い青（落ち着いた色） */
+}
+.event-lane-2 { --event-color: #64748b; }
+
+/* Lane 1: Rule Change (Impact) -> 青色（一番下・落ち着いた色） */
+.lane-1 { 
+    --lane-color: #475569; /* アクセントカラー（落ち着いたスレートブルー） */
+    --lane-bg-color: #64748b; /* 落ち着いた青（スレートブルーグレー） */
+}
+.event-lane-1 { --event-color: #475569; }
+
+/* 年軸ラッパー: スクロール可能なコンテナ */
+.year-axis-wrapper {
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 50px;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* スクロールバーを非表示 */
+    -ms-overflow-style: none; /* IE/Edge用 */
+}
+
+/* スクロールバーを非表示（WebKit系ブラウザ用） */
+.year-axis-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+/* 年軸: シンプルな白背景 */
+.year-axis {
+    height: 50px;
+    background: #ffffff;
+    position: relative;
+    overflow: visible;
+    min-width: 100%;
+    display: block;
+}
+
+.year-axis-content {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    min-width: 100%;
+    display: block;
+}
+
+/* 年表レーンを横断する縦線 */
+/* Editorial: 破線で控えめなガイドライン、印刷物のような質感 */
+.year-vertical-line {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 100%;
+    border-left: 1px dashed #e2e8f0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 1;
+}
+
+/* 年ティック: グラデーション削除、ソリッドカラーに */
+.year-tick {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 18px;
+    background: #495057;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* 年ラベル: 等幅フォントでデータ感を演出、控えめな表示 */
+/* Editorial: 数値には等幅フォント、主張を抑えたグレー、ティック付き */
+.year-label {
+    position: absolute;
+    top: 8px;
+    font-family: 'Roboto Mono', 'SF Mono', 'Monaco', 'Cascadia Code', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    color: #94a3b8;
+    transform: translateX(-50%);
+    letter-spacing: 0;
+    transition: color 0.2s ease;
+}
+
+/* 年ラベルの下にティック（目盛り）を追加 */
+.year-label::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 6px;
+    background: #94a3b8;
+    margin-top: 4px;
+}
+
+.year-label:hover {
+    color: #64748b;
+}
+
+/* イベントボックス: インデックスカードのような質感 */
+/* Editorial: 全周の繊細な境界線、薄い影、情報密度の高いパディング */
+.event-box {
+    position: absolute;
+    min-width: 200px;
+    max-width: 240px;
+    width: 240px;
+    padding: 12px;
+    background: #ffffff;
+    /* 全周の繊細な境界線: インデックスカードのような質感 */
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-left: 3px solid var(--event-color, #64748b);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+    z-index: 20;
+    word-wrap: break-word;
+    visibility: visible;
+    opacity: 1;
+    /* 極めて薄い影: フラットで印刷物のような印象 */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* イベントコンテンツ */
+.event-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* イベントタイトル: 機能的で美しいラベルスタイル */
+/* Editorial: 小さく、大文字、広い文字間、控えめな色で機能性を強調 */
+.event-title {
+    font-weight: 600;
+    font-size: 11px;
+    color: #64748b;
+    text-align: center;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* イベント本文 */
+/* Editorial: 可読性を最大化する濃いグレー、適切な行間、中程度のウェイト */
+.event-body {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #1e293b;
+}
+
+.event-box:hover {
+    /* ホバー時も控えめに: 薄い影のみ */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    z-index: 20;
+    /* transform削除: 装飾過多を回避 */
+}
+
+/* ::before疑似要素削除: グラデーション装飾を廃止 */
+
+/* ホバー時の装飾削減: 極めて控えめに */
+.event-box:hover.event-lane-4 { 
+    box-shadow: 0 1px 3px rgba(100, 116, 139, 0.1);
+}
+.event-box:hover.event-lane-3 { 
+    box-shadow: 0 1px 3px rgba(13, 148, 136, 0.1);
+}
+.event-box:hover.event-lane-2 { 
+    box-shadow: 0 1px 3px rgba(234, 88, 12, 0.12);
+}
+.event-box:hover.event-lane-1 { 
+    box-shadow: 0 1px 3px rgba(71, 85, 105, 0.1);
+}
+
+.event-connector {
+    position: absolute;
+    width: 1px;
+    border-left: 1px dashed #adb5bd;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.lane-label {
+    position: absolute;
+    left: -190px;
+    width: 180px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 16px;
+    color: #2c3e50;
+    text-align: center;
+}
+
+/* スクロールバー: シンプルなデザインに */
+.timeline-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.timeline-wrapper::-webkit-scrollbar-track {
+    background: #e9ecef;
+    border-radius: 0;
+}
+
+.timeline-wrapper::-webkit-scrollbar-thumb {
+    /* グラデーション削除: ソリッドグレーに */
+    background: #adb5bd;
+    border-radius: 0;
+    border: none;
+}
+
+.timeline-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #868e96;
+}
+
+@media print {
+    body {
+        overflow: visible;
+        background: #ffffff;
+    }
+    .timeline-wrapper {
+        overflow: visible;
+        background: #ffffff;
+    }
+    /* 印刷時の装飾削除: 境界線は維持 */
+    .event-box {
+        box-shadow: none;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-left: 3px solid var(--event-color);
+    }
+}
